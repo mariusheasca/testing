@@ -1,38 +1,72 @@
+/* Basic styles */
 body {
     text-align: center;
     font-family: sans-serif;
     background-color: #111;
     color: #eee;
+    margin: 0;
+    padding: 10px;
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+  }
+  
+  h1 {
+    margin-bottom: 5px;
+  }
+  
+  #score {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
   }
   
   canvas {
     background-color: #222;
     border: 2px solid #555;
     display: block;
-    margin: 20px auto;
-  }
-  #controls {
-    text-align: center;
-    margin-top: 10px;
-    user-select: none;
+    margin: 0 auto;
+    touch-action: none; /* Disable default gestures on canvas */
   }
   
+  /* Controls container */
+  #controls {
+    margin-top: 15px;
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+  }
+  
+  /* Buttons */
   #controls button {
-    font-size: 2rem;
-    width: 60px;
-    height: 60px;
-    margin: 5px;
-    border-radius: 10px;
+    font-size: 2.5rem;
+    width: 70px;
+    height: 70px;
+    margin: 7px 10px 7px 10px;
+    border-radius: 15px;
     border: none;
     background-color: #333;
     color: white;
     cursor: pointer;
     touch-action: manipulation;
+    outline: none;
+    transition: background-color 0.2s;
+    -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
   }
   
   #controls button:active {
     background-color: #555;
   }
+  
+  /* Layout the buttons in a nice way */
+  #controls {
+    display: inline-block;
+  }
+  
+  #controls br {
+    line-height: 0.5;
+  }
+  
+  /* Responsive - hide controls on larger screens */
   @media (min-width: 600px) {
     #controls {
       display: none;
