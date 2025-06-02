@@ -9,8 +9,14 @@ let food = { x: 15, y: 15 };
 let dx = 0;
 let dy = 0;
 let score = 0;
+let intervalId = null;
 
 document.addEventListener("keydown", e => {
+  // Start game on first valid key press
+  if (!intervalId && ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key)) {
+    intervalId = setInterval(gameLoop, 150);
+  }
+
   switch (e.key) {
     case "ArrowUp": if (dy === 0) { dx = 0; dy = -1; } break;
     case "ArrowDown": if (dy === 0) { dx = 0; dy = 1; } break;
@@ -22,11 +28,15 @@ document.addEventListener("keydown", e => {
 function gameLoop() {
   const head = { x: snake[0].x + dx, y: snake[0].y + dy };
 
-  // Check wall collision
-  if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) return gameOver();
+  // Collision with walls
+  if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) {
+    return gameOver();
+  }
 
-  // Check self collision
-  if (snake.some(segment => segment.x === head.x && segment.y === head.y)) return gameOver();
+  // Collision with self
+  if (snake.some(segment => segment.x === head.x && segment.y === head.y)) {
+    return gameOver();
+  }
 
   snake.unshift(head);
 
@@ -47,7 +57,9 @@ function draw() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   ctx.fillStyle = "#0f0";
-  snake.forEach(s => ctx.fillRect(s.x * gridSize, s.y * gridSize, gridSize - 2, gridSize - 2));
+  snake.forEach(s => {
+    ctx.fillRect(s.x * gridSize, s.y * gridSize, gridSize - 2, gridSize - 2);
+  });
 
   ctx.fillStyle = "#f00";
   ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize - 2, gridSize - 2);
@@ -59,8 +71,7 @@ function placeFood() {
 }
 
 function gameOver() {
+  clearInterval(intervalId);
   alert("💀 Game Over! Your score: " + score);
   location.reload();
 }
-
-setInterval(gameLoop, 150);
