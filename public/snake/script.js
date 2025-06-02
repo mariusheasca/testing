@@ -75,3 +75,16 @@ function gameOver() {
   alert("💀 Game Over! Your score: " + score);
   location.reload();
 }
+document.getElementById("up").addEventListener("click", () => {
+    if (dy === 0) { dx = 0; dy = -1; }
+  });
+  document.getElementById("down").addEventListener("click", () => {
+    if (dy === 0) { dx = 0; dy = 1; }
+  });
+  document.getElementById("left").addEventListener("click", () => {
+    if (dx === 0) { dx = -1; dy = 0; }
+  });
+  document.getElementById("right").addEventListener("click", () => {
+    if (dx === 0) { dx = 1; dy = 0; }
+  });
+  
